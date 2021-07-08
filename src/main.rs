@@ -29,7 +29,7 @@ fn retrieve_data_size(file: &std::path::Path) -> Result<u64, io::Error> {
 fn export_binary(elf_path: &std::path::Path) -> std::path::PathBuf {
     let dest_bin = elf_path.parent().unwrap().to_path_buf().join("app.hex");
 
-    Command::new("arm-none-eabi-objcopy")
+    Command::new("armv6l-unknown-none-eabi-objcopy")
         .arg(&elf_path)
         .arg(&dest_bin)
         .args(&["-O", "ihex"])
@@ -37,7 +37,7 @@ fn export_binary(elf_path: &std::path::Path) -> std::path::PathBuf {
         .expect("Objcopy failed");
 
     // print some size info while we're here
-    let out = Command::new("arm-none-eabi-size")
+    let out = Command::new("armv6l-unknown-none-eabi-size")
         .arg(&elf_path)
         .output()
         .expect("Size failed");
